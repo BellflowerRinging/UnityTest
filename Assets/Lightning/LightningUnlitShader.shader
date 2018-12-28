@@ -3,10 +3,14 @@
 	Properties
 	{
 		_MainTex ("Texture",2D) = "white" {}
+		_Glossiness ("Smoothness", Range(0,1)) = 0.5
+		_Metallic ("Metallic", Range(0,1)) = 0.0
+
+		_Color ("Color", Color) = (1,1,1,1)
 		_StartColor("StartColor",Color) = (0,0,0,0)
 		_EndColor("EndColor",Color) = (0,0,0,0)
-		_Offset("Min value",Range(-0.5,0.5))=1
-		_AllhaMax("Min value",Range(0,1))=1
+		_Offset("Min Offset",Range(-0.5,0.5))=1
+		_AllhaMax("AllhaMax",Range(0,1))=1
 	}
 	SubShader
 	{
@@ -70,5 +74,7 @@
 			}
 			ENDCG
 		}
+
+
 	}
 }
