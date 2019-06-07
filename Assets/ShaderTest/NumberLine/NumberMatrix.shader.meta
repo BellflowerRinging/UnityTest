@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 24904852f57974848ab7b618bd4d97de
+timeCreated: 1547107262
+licenseType: Free
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _RandomTex: {fileID: 2800000, guid: 2aaadfd71562a614db685adf6060e924, type: 3}
+  - _FlowingTex: {fileID: 2800000, guid: e47ff5f96dc032047b8e11a107350103, type: 3}
+  - _NumberTex: {fileID: 2800000, guid: 4423a74d19b1ec240baa79ba90d220fa, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

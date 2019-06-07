@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: _17th_Code_NumberMatrix
+  m_Shader: {fileID: 4800000, guid: 24904852f57974848ab7b618bd4d97de, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FlowingTex:
+        m_Texture: {fileID: 2800000, guid: e47ff5f96dc032047b8e11a107350103, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NumberTex:
+        m_Texture: {fileID: 2800000, guid: 4423a74d19b1ec240baa79ba90d220fa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 17, y: 0}
+    - _RandomTex:
+        m_Texture: {fileID: 2800000, guid: 2aaadfd71562a614db685adf6060e924, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Intensity: 5
+    m_Colors:
+    - _CellSize: {r: 1, g: 2, b: 2, a: 2}
+    - _Speed: {r: 1, g: 10, b: 0, a: 0}
+    - _TexelSizes: {r: 0, g: 0.003, b: 10, a: 0}
+    - _TintColor: {r: 0, g: 1, b: 0.2965517, a: 1}

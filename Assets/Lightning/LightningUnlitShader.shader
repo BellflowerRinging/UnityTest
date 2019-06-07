@@ -1,12 +1,9 @@
-﻿Shader "Unlit/GradientColor"
+﻿Shader "Master/GradientColor"
 {
 	Properties
 	{
 		_MainTex ("Texture",2D) = "white" {}
-		_Glossiness ("Smoothness", Range(0,1)) = 0.5
-		_Metallic ("Metallic", Range(0,1)) = 0.0
 
-		_Color ("Color", Color) = (1,1,1,1)
 		_StartColor("StartColor",Color) = (0,0,0,0)
 		_EndColor("EndColor",Color) = (0,0,0,0)
 		_Offset("Min Offset",Range(-0.5,0.5))=1
@@ -64,10 +61,9 @@
 				fixed4 col = tex2D(_MainTex, i.uv);
 				fixed locUv=distance(i.uv.y,0.5);
 				fixed locUvFcolor=locUv+_Offset;
+
 				col.rgb=lerp(_StartColor.rgb,_EndColor.rgb,locUvFcolor/0.5);
-
 				col.a=clamp(lerp(1,0,locUv/_AllhaMax),0,1);
-
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
