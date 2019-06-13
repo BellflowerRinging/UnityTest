@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public interface ISimpleEvent
 {
     string Sender { get; }
-    EventType Type { get; }
+    string Type { get; }
     bool IsOnce { get; }
     bool IsEmpty { get; }
     bool IsDeath { get; }
@@ -16,58 +16,50 @@ public interface ISimpleEvent
     bool Equals(object obj);
 }
 
-public enum EventType
+public class BaseEventType
 {
-    NULL = 2,
-    ANY_ONE = 4,
-    UI_EVENT = 8,
-    UI_OPEN = 16,
-    UI_CLOSE = 32,
-    CONFIGCHANGE = 64,
-    SagaShopEvent = 128,
-    ActorPropChange = 256,
+    public const string NULL = "NULL";
+    public const string ANY_ONE = "ANY_ONE";
+    public const string UI_EVENT = "UI_EVENT";
+    public const string ACTOR_EVENT = "ACTOR_EVENT";
+    public const string MONSTER_EVENT = "MONSTER_EVENT";
 }
 
-public static class EventRelation
+public class UiEventType
 {
-    static Dictionary<EventType, EventType> m_dic;
-    static EventRelation()
-    {
-        m_dic = new Dictionary<EventType, EventType>();
-        m_dic.Add(EventType.ANY_ONE, EventType.NULL);
-
-        m_dic.Add(EventType.UI_EVENT, EventType.ANY_ONE);
-
-        m_dic.Add(EventType.UI_OPEN, EventType.UI_EVENT);
-        m_dic.Add(EventType.UI_CLOSE, EventType.UI_EVENT);
-    }
-
-    public static EventType GetEventParent(EventType type)
-    {
-        if (m_dic.ContainsKey(type))
-            return m_dic[type];
-        return EventType.NULL;
-    }
-
+    public const string PARENT = BaseEventType.UI_EVENT;
+    public const string UI_OPEN = PARENT + ".UI_OPEN";
+    public const string UI_CLOSE = PARENT + ".UI_OPEN";
 }
 
+public class ActorEventType
+{
+    public const string PARENT = BaseEventType.ACTOR_EVENT;
+    public const string PROR_CHANGE = PARENT + ".PROR_CHANGE";
+}
+
+public class MonsterEventType
+{
+    public const string PARENT = BaseEventType.MONSTER_EVENT;
+    public const string DEATH = PARENT + ".DEATH";
+}
 
 public class SimpleEvent : ISimpleEvent, IResetAble
 {
-    EventType type;
     UnityAction<IMessage> Call;
     bool Once = false;
     string sender;
+    string type;
     static readonly public SimplePool<SimpleEvent> S_Pool;
 
     public string Sender { get { return sender; } }
-    public EventType Type { get { return type; } }
+    public string Type { get { return type; } }
 
     public virtual bool IsEmpty
     {
         get
         {
-            return EventType.NULL == type || Call == null || string.IsNullOrEmpty(sender);
+            return BaseEventType.NULL == type || Call == null;
         }
     }
 
@@ -104,7 +96,7 @@ public class SimpleEvent : ISimpleEvent, IResetAble
     {
         S_Pool.Free(e);
     }
-    public static SimpleEvent Pop(EventType type, string sender, UnityAction<IMessage> call, bool once = false)
+    public static SimpleEvent Pop(string type, string sender, UnityAction<IMessage> call, bool once = false)
     {
         var e = S_Pool.Get();
         e.sender = sender;
@@ -119,7 +111,7 @@ public class SimpleEvent : ISimpleEvent, IResetAble
         Reset();
     }
 
-    public SimpleEvent(EventType type, string sender, UnityAction<IMessage> call, bool once = false)
+    public SimpleEvent(string type, string sender, UnityAction<IMessage> call, bool once = false)
     {
         this.sender = sender;
         this.type = type;
@@ -129,7 +121,7 @@ public class SimpleEvent : ISimpleEvent, IResetAble
     public void Reset()
     {
         this.sender = null;
-        this.type = EventType.NULL;
+        this.type = BaseEventType.NULL;
         this.Call = null;
         Once = false;
     }
@@ -198,7 +190,7 @@ public class MonoEvent : SimpleEvent
         }
     }
 
-    public MonoEvent(EventType type, string sender, MonoBehaviour mono, UnityAction<IMessage> call, bool once = false) : base(type, sender, call, once)
+    public MonoEvent(string type, string sender, MonoBehaviour mono, UnityAction<IMessage> call, bool once = false) : base(type, sender, call, once)
     {
         this.Mono = mono;
     }

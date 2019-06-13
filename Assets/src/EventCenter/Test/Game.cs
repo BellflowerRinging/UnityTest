@@ -20,6 +20,7 @@ public class Game : MonoBehaviour
      * 1.角色属性改变
      * 2.任务监听怪物死亡
      * 3.新手引导，当UI界面加载完毕时，在相应的位置显示箭头，需要监听UI界面打开完成的事件
+     * 4.当角色生命值和魔法值同时发生改变时，提示受到混合伤害
     */
 
     /*
@@ -52,7 +53,7 @@ public class Game : MonoBehaviour
      * 要完全解耦就不能有Sender这个形参
      * FireEvent(EventType, Sender, IMessage) 就会变成 FireEvent(EventType, IMessage)
      * EventType.HpChange可能是PlayerABCD发送的
-     * 所以EventType应该因细节到EventType.PlayerA_HpChange,EventType.PlayerB_HpChange,EventType.PlayerC_HpChange... 太多了应该有更好的方案
+     * 所以EventType应该因细节到EventType.PlayerA_HpChange,EventType.PlayerB_HpChange,EventType.PlayerC_HpChange... 太多了应该有
      */
 
     /*
@@ -66,9 +67,8 @@ public class Game : MonoBehaviour
      *应该是
      * SimpleEvent(EventType,Callback)
      * 
-     *
-     * 
-     * 
+     *对于第4点，单个事件的内容该怎么设计？
+     * 方案1.EventObject：“某角色”，EventType：“属性发生改变”，Message：“HP-50，MP-50”， 
      */
 
 
@@ -85,6 +85,20 @@ public class Game : MonoBehaviour
      * 什么方案都会出现人为失误，但越能减少失误的方案越好。
      * 
      */
+
+    /* 对于第4点，单个事件的内容该怎么设计？
+     *   方案1.去除
+     * 
+     */
+
+    /* 方案1.FireEvent(Class, Type, IMessage)  事件的主角，事件内容
+     * 
+     * 
+     */
 }
 
 
+interface IEventObject
+{
+    string Name { get; }
+}

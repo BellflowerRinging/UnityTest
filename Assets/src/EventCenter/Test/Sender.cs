@@ -11,8 +11,10 @@ public class Sender : MonoBehaviour
     {
 
         ActorChangeMessage mes = new ActorChangeMessage("Hp", "100", "50");
-        m_game.EventCenter.FireEvent(EventType.ActorPropChange, "一个不应该被知道的发送者", mes);
+        m_game.EventCenter.FireEvent(ActorEventType.PROR_CHANGE, "PlayerA", mes);
 
+        MonsterDeathMessage mes1 = new MonsterDeathMessage("MonsterA", "PlayerA");
+        m_game.EventCenter.FireEvent(MonsterEventType.DEATH, null, mes1);
     }
 
 }
