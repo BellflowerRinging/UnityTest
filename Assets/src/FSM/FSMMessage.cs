@@ -14,11 +14,30 @@ public struct FSMStateMessage : IMessage
     }
 }
 
-public struct FSMStateSwitchMessage : IMessage
+public interface IFSMStateSwitchMessage : IMessage
 {
-    public System.Type LastStateType;
-    public System.Type CurStateType;
+    System.Type LastStateType { get; }
+    System.Type CurStateType { get; }
+}
 
+public struct FSMStateSwitchMessage : IFSMStateSwitchMessage
+{
+    public System.Type LastStateType { get; set; }
+    public System.Type CurStateType { get; set; }
+
+    public bool isEmpty()
+    {
+        return false;
+    }
+}
+
+
+public interface IFSMStateRunningMessage : IMessage
+{
+}
+
+public struct FSMStateRunningMessage : IFSMStateRunningMessage
+{
     public bool isEmpty()
     {
         return false;
