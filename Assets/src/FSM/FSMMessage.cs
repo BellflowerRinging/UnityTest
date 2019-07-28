@@ -8,7 +8,7 @@ public struct FSMStateMessage : IMessage
     public System.Type LastStateType;
     public System.Type CurStateType;
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return false;
     }
@@ -25,7 +25,7 @@ public struct FSMStateSwitchMessage : IFSMStateSwitchMessage
     public System.Type LastStateType { get; set; }
     public System.Type CurStateType { get; set; }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return false;
     }
@@ -38,7 +38,7 @@ public interface IFSMStateRunningMessage : IMessage
 
 public struct FSMStateRunningMessage : IFSMStateRunningMessage
 {
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return false;
     }

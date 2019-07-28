@@ -65,12 +65,12 @@ public class MonoFSMContorl<T> : IMonoFSMContorl<T> where T : MonoFSMState
         {
             var mes = new FSMStateSwitchMessage();
 
-            mes.LastStateType = m_cur_state?.GetType();
+            mes.LastStateType = m_cur_state.GetType();
             mes.CurStateType = value.GetType();
 
             m_cur_state = value;
 
-            m_switch_listener?.Invoke(mes);
+            if (m_switch_listener != null) m_switch_listener.Invoke(mes);
         }
     }
 

@@ -53,7 +53,7 @@ public struct ActorChangeMessage : IMessage
         ChangeValue = changeValue;
     }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return false; //偷懒不写
     }
@@ -70,7 +70,7 @@ public struct MonsterDeathMessage : IMessage
         Killer = killer;
     }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return false; //偷懒不写
     }

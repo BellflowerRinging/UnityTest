@@ -15,24 +15,27 @@ public class PlayerContorl : MonoBehaviour
 
     void Update()
     {
+        var forward = Vector3.zero;
         if (Input.GetKey("w"))
         {
-            transform.Translate(m_speed * transform.forward * Time.deltaTime, Space.Self);
-            m_player_fsm.SwitchTo(typeof(PlayerMoveState));
+            forward = transform.forward;
         }
         else if (Input.GetKey("s"))
         {
-            transform.Translate(m_speed * transform.forward * Time.deltaTime * -1, Space.Self);
-            m_player_fsm.SwitchTo(typeof(PlayerMoveState));
+            forward = transform.forward * -1;
         }
         else if (Input.GetKey("a"))
         {
-            transform.Translate(m_speed * (Quaternion.Euler(0, -90, 0) * transform.forward) * Time.deltaTime, Space.Self);
-            m_player_fsm.SwitchTo(typeof(PlayerMoveState));
+            forward = Quaternion.Euler(0, -90, 0) * transform.forward;
         }
         else if (Input.GetKey("d"))
         {
-            transform.Translate(m_speed * (Quaternion.Euler(0, 90, 0) * transform.forward) * Time.deltaTime, Space.Self);
+            forward = Quaternion.Euler(0, 90, 0) * transform.forward;
+        }
+
+        if (forward != Vector3.zero)
+        {
+            transform.Translate(m_speed * forward * Time.deltaTime, Space.Self);
             m_player_fsm.SwitchTo(typeof(PlayerMoveState));
         }
         else
@@ -40,8 +43,5 @@ public class PlayerContorl : MonoBehaviour
             m_player_fsm.SwitchTo(typeof(PlayerIdleState));
         }
     }
-
-
-
 }
 

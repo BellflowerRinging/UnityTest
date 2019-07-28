@@ -3,13 +3,11 @@
 
 public interface IMessage
 {
-    bool isEmpty();
-
     string ToString();
 }
 public struct EmptyMessage : IMessage
 {
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return true;
     }
@@ -24,7 +22,7 @@ public struct Message<T> : IMessage
         this.t = t;
     }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return t == null;
     }
@@ -33,15 +31,15 @@ public struct Message<T> : IMessage
 public struct Message<T, K> : IMessage
 {
     public T t;
-    public T k;
+    public K k;
 
-    public Message(T t, T k)
+    public Message(T t, K k)
     {
         this.t = t;
         this.k = k;
     }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return t == null && k == null;
     }
@@ -60,7 +58,7 @@ public struct Message<T, K, V> : IMessage
         this.v = v;
     }
 
-    public bool isEmpty()
+    public bool IsEmpty()
     {
         return t == null && k == null && v == null;
     }
