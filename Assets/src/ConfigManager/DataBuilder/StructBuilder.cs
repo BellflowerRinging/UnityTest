@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 public struct AccessModifierConst
 {
@@ -11,7 +12,7 @@ public struct AccessModifierConst
 
 public class StructBuilder
 {
-    private static readonly string PATH = "src/ConfigManager/DataStruct/";
+    private static readonly string PATH = "src/ConfigManager/AutoReadOnly/DataStruct/";
 
     public struct Property
     {
@@ -54,6 +55,15 @@ public class StructBuilder
         List<string> UsingList;
     }
 
+    public static void CreateDataStruct(List<TabelData> datas)
+    {
+        foreach (var item in datas)
+        {
+            Debug.Log("创建Struct：" + item.Name);
+            CreateDataStruct(item.Name, item.ColumnInfos);
+        }
+    }
+
     public static void CreateDataStruct(TabelData data)
     {
         CreateDataStruct(data.Name, data.ColumnInfos);
@@ -70,7 +80,7 @@ public class StructBuilder
 
         var result = CreateStruct(name, prop_list, null, new Config());
 
-        JsonDataManager.WriteStringToFile(PATH + name + ".cs", result);
+        FileContorl.WriteStringToFile(PATH + name + ".cs", result);
     }
 
     public static string CreateStruct(string name, List<Property> prop_list, List<Method> method_list, Config congif)

@@ -14,11 +14,26 @@ public class ExcelDataManager
     const int COLUNM_TYPE_ROW = 2; //列类型行
     const int DATA_START_TOW = 3;  //数据行从这里开始读
 
+    public static List<TabelData> GetAllTable()
+    {
+        var list = new List<TabelData>();
+        var names = Directory.GetFiles(PATH);
+
+        Debug.Log(PATH);
+
+        foreach (var item in names)
+        {
+            if (Path.GetExtension(item) != ".xlsx") continue;
+
+            list.AddRange(GetTableList(Path.GetFileNameWithoutExtension(item)));
+        }
+
+        return list;
+    }
+
     public static List<TabelData> GetTableList(string ExcelName)
     {
         ExcelName = PATH + ExcelName + ".xlsx";
-
-        Debug.Log(ExcelName);
 
         if (!File.Exists(ExcelName)) throw new UnityException("File is Not:" + ExcelName);
         FileStream stream = File.Open(ExcelName, FileMode.Open, FileAccess.Read);
@@ -33,6 +48,9 @@ public class ExcelDataManager
             var tabel_data = new TabelData();
 
             tabel_data.Name = table.TableName;
+
+            Debug.Log(ExcelName + " - " + tabel_data.Name);
+
             tabel_data.ColumnInfos = GetColunmInfos(table.Rows[COLUNM_NAME_ROW], table.Rows[COLUNM_TYPE_ROW]);
             tabel_data.RowDic = GetRowDataList(tabel_data.ColumnInfos, table.Rows);
 

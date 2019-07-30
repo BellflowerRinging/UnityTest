@@ -8,31 +8,23 @@ public static class JsonDataManager
 {
     const string PATH = "Resources/Json/";
     const string RESOURCE_PATH = "Json/";
-    /// <summary>
-    /// 
-    /// </summary>
+
+    public static void WriteAllTabelToJsonFile(List<TabelData> datas)
+    {
+        Debug.Log(PATH);
+
+        foreach (var item in datas)
+        {
+            Debug.Log("写出Json：" + item.Name);
+            WriteTabelToJsonFile(item);
+        }
+    }
+
+
     /// <param name="path">Resources文件下</param>
     public static void WriteTabelToJsonFile(TabelData data)
     {
-        WriteStringToFile(PATH + data.Name + ".json", JsonConvert.SerializeObject(data));
-    }
-
-    public static void WriteStringToFile(string path_with_name, string data)
-    {
-        var resouece_path = Application.dataPath + "/" + path_with_name;
-
-        FileStream file_stream;
-        if (!File.Exists(resouece_path))
-        {
-            file_stream = File.Create(resouece_path);
-        }
-        else file_stream = File.OpenWrite(resouece_path);
-
-        var stream = new StreamWriter(file_stream);
-
-        stream.Write(data);
-
-        stream.Close();
+        FileContorl.WriteStringToFile(PATH + data.Name + ".json", JsonConvert.SerializeObject(data));
     }
 
     public static List<TabelData> ReadTableList()

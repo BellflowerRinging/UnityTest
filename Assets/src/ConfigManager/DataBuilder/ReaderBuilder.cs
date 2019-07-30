@@ -119,17 +119,14 @@ public static class ConfigReader
     /// </summary>
     const string MACRO_Type = "$Type$";
 
-    [MenuItem("Tools/Create Config Reader")]
-    public static void CreateConfigReader()
-    {
-        Debug.Log("读取所有Json数据");
-        var table_list = JsonDataManager.ReadTableList();
 
+    public static void CreateConfigReader(List<TabelData> table_list)
+    {
         Debug.Log("创建ReaderConfig类");
         var reader = CreateReaderClass(table_list);
 
         Debug.Log("写出ReaderConfig类 " + PATH + "ConfigReader.cs");
-        JsonDataManager.WriteStringToFile(PATH + "ConfigReader.cs", reader);
+        FileContorl.WriteStringToFile(PATH + "ConfigReader.cs", reader);
 
         Debug.Log("创建完成");
     }
@@ -203,7 +200,7 @@ public static class ConfigReader
             cs = cs.Replace(MACRO_Type, System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(item.Type));
 
             list.Add(cs);
-        } 
+        }
 
         return string.Join(",\n", list.ToArray());
     }
