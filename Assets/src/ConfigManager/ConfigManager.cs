@@ -6,14 +6,20 @@ public static class ConfigManager
 
     public static void LoadAllConfig()
     {
-        //m_config_data = ConfigReader.ReadConfig();
+        m_config_data = ConfigReader.ReadConfig();
     }
 
-    public static T GetConfig<T>(string config, string id) where T : IConfigData
+    /// <summary>
+    /// 获得单个配置
+    /// </summary>
+    /// <typeparam name="T">配置结构体</typeparam>
+    /// <param name="id">Id</param>
+    /// <returns></returns>
+    public static T GetConfig<T>(string id) where T : IConfigData
     {
         foreach (var cfg in m_config_data)
         {
-            if (cfg.Key == config)
+            if (cfg.Key == typeof(T).Name)
             {
                 foreach (var data in cfg.Value)
                 {
@@ -28,11 +34,16 @@ public static class ConfigManager
         return default(T);
     }
 
-    public static Dictionary<string, T> GetConfig<T>(string config) where T : IConfigData
+    /// <summary>
+    /// 获得所有配置
+    /// </summary>
+    /// <typeparam name="T">配置结构体</typeparam>
+    /// <returns></returns>
+    public static Dictionary<string, T> GetConfig<T>() where T : IConfigData
     {
         foreach (var cfg in m_config_data)
         {
-            if (cfg.Key == config)
+            if (cfg.Key == typeof(T).Name)
             {
                 return ConvertToIConfigData<T>(cfg.Value);
             }

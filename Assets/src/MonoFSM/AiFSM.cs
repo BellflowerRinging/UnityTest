@@ -64,12 +64,12 @@ public class AiLaughState : IAiFsmState
 
     public override void Enter(IFSMStateSwitchMessage message)
     {
-        Debug.Log("Enter AiLaughState");
+        //Debug.Log("Enter AiLaughState");
     }
 
     public override void Exit(IFSMStateSwitchMessage message)
     {
-        Debug.Log("Exit AiLaughState");
+        //Debug.Log("Exit AiLaughState");
     }
 
     public override void Running(IFSMStateRunningMessage message)

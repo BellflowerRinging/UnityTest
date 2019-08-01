@@ -11,7 +11,7 @@ public static class JsonDataManager
 
     public static void WriteAllTabelToJsonFile(List<TabelData> datas)
     {
-        Debug.Log(PATH);
+        //Debug.Log(PATH);
 
         foreach (var item in datas)
         {
@@ -49,7 +49,7 @@ public static class JsonDataManager
 
     private static string ReadJsonData(string json_name, bool with_path = false)
     {
-        Debug.Log("ReadJsonData - " + json_name);
+        //Debug.Log("ReadJsonData - " + json_name);
 
         var data = Resources.Load(RESOURCE_PATH + json_name).ToString();
 
